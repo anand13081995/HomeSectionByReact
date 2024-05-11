@@ -1,18 +1,47 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import Home from './components/Home/Home.jsx'
-import './index.css'
-import ImgPart from './components/ImgPart/ImgPart.jsx'
-import ThirdPart from './components/ThirdPart/ThirdPart.jsx'
-import FourthPart from './components/FourthPart/FourthPart.jsx'
-import Footer from './components/Footer/Footer.jsx'
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom/client';
+import Nav from './components/Nav/Nav.jsx';
+import './index.css';
+import Footer from './components/Footer/Footer.jsx';
+import Quotes from './components/QuotesData/Quotes.jsx';
+import Resturant from './components/ResturantData/Resturants.jsx';
+import ImgPart from './components/ImgPart/ImgPart.jsx';
+import ThirdPart from './components/ThirdPart/ThirdPart.jsx';
+import FourthPart from './components/FourthPart/FourthPart.jsx';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <Home />
-    <ImgPart />
-    <ThirdPart />
-    <FourthPart />
-    <Footer />
-  </React.StrictMode>,
-)
+function App() {
+  const [showQuotes, setShowQuotes] = useState(false);
+  const [showResturant, setshowResturant] =  useState(false);
+
+  const handleShowQuotes = () => {
+    setShowQuotes(true);
+  };
+
+  const handleShowResturant = ()=> {
+    setshowResturant(true);
+  }
+
+  return (
+    <React.StrictMode>
+      <Nav 
+        onQuoteClick={handleShowQuotes} 
+        onResturantsClick={handleShowResturant}
+      />
+
+      {showQuotes ? (
+        <Quotes /> 
+        ) : showResturant ?(
+          <Resturant />
+        ):(
+        <>
+          <ImgPart />
+          <ThirdPart />
+          <FourthPart /> 
+          <Footer />
+        </>
+      )}
+    </React.StrictMode>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
